@@ -13,7 +13,8 @@ export const SearchForm = ({ userName, setUserName }: SearchFormProps) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const dataConverted = Object.fromEntries(data);
-        if (dataConverted[0] === undefined || dataConverted[0].toString().trim() === "") {
+        console.log(dataConverted)
+        if (dataConverted["searchuser"].toString().trim() === "") {
             console.log("UIIII");
             toast({ description: "Please introduce a username..." });
             return;
