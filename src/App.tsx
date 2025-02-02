@@ -1,19 +1,13 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
-import { Button } from './components/ui/button';
+import { SearchForm } from './components/SearchForm';
+import { UserProfile } from './components/UserProfile';
 
 const App = () => {
-  return <>
-    <h1 className="text-2xl font-bold">Search Github Users</h1>
-    <Button>Click me</Button>
-    <Button variant='outline' size='lg'>
-      Click me
-    </Button>
-    <Button variant='destructive' size='sm'>
-      Click me
-    </Button>
-  </>;
+  const [userName, setUserName] = useState("CR7sewey");
+  return <main className='mx-auto max-w-6xl px-8 py-20'>
+    <SearchForm userName={userName} setUserName={setUserName} />
+    <UserProfile userName={userName} />
+  </main>;
 };
 export default App;

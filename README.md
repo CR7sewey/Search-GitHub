@@ -189,3 +189,87 @@ npx shadcn@latest init
 ```bash
 npx shadcn@latest add button card chart input label skeleton toast
 ```
+
+## Structure
+
+- setup local state in App.tsx
+- create src/components/form/SearchForm.tsx
+- create src/components/user/UserProfile.tsx
+- render both components in App.tsx
+- pass userName and setUserName to SearchForm
+- pass userName to UserProfile
+
+App.tsx
+
+```tsx
+const [userName, setUserName] = useState("quincylarson");
+```
+
+src/components/form/SearchForm.tsx
+
+```tsx
+type SearchFormProps = {
+  userName: string;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+};
+
+export const SearchForm = ({ userName, setUserName }: SearchFormProps) => {
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget).get("searchuser") as string;
+    setUserName(data);
+  };
+  return (
+    <form
+      className="grid w-full max-w-sm items-center gap-1.5"
+      onSubmit={handleSearch}
+    >
+      <Label htmlFor="searchuser">Username</Label>
+      <div>
+        <Input
+          type="search"
+          placeholder="github username"
+          id="searchuser"
+          name="searchuser"
+          defaultValue={userName}
+          required
+        />
+        <Button>Search</Button>
+      </div>
+    </form>
+  );
+};
+```
+
+src/components/user/UserProfile.tsx
+
+```tsx
+type UserProfileProps = {
+  userName: string;
+};
+
+const UserProfile = ({ userName }: UserProfileProps) => {
+  return <h1 className="text-2xl font-bold">{userName}</h1>;
+};
+export default UserProfile;
+```
+
+src/App.tsx
+
+```tsx
+mport { useState } from 'react';
+import SearchForm from './components/form/SearchForm';
+import UserProfile from './components/user/UserProfile';
+
+const App = () => {
+  const [userName, setUserName] = useState('quincylarson');
+
+  return (
+    <main className='mx-auto max-w-6xl px-8 py-20'>
+      <SearchForm userName={userName} setUserName={setUserName} />
+      <UserProfile userName={userName} />
+    </main>
+  );
+};
+export default App;
+```
