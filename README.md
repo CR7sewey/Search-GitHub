@@ -78,3 +78,114 @@ npm install
 ```bash
 npm run dev
 ```
+
+## Tailwind CSS
+
+```bash
+npm install -D tailwindcss@3 postcss autoprefixer
+npx tailwindcss init -p
+```
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+```
+
+index.css
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+```
+
+App.tsx
+
+```tsx
+const App = () => {
+  return <h1 className="text-2xl font-bold">Search Github Users</h1>;
+};
+export default App;
+```
+
+- remove App.css
+- change title in index.html
+
+```html
+<title>Search Github Users</title>
+```
+
+## Shadcn UI
+
+tsconfig.json
+[DOC]https://ui.shadcn.com/docs/installation/vite
+
+```json
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+tsconfig.app.json
+
+```json
+{
+  "compilerOptions": {
+    // rest of the options
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
+}
+```
+
+```bash
+npm i -D @types/node
+
+```
+
+vite.config.ts
+
+```ts
+import path from "path";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
+});
+```
+
+- initialize shadcn
+
+```bash
+npx shadcn@latest init
+```
+
+- add components
+
+```bash
+npx shadcn@latest add button card chart input label skeleton toast
+```
